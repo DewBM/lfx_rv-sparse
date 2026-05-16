@@ -26,7 +26,20 @@ void sparse_multiply(
     int* out_nnz, double* values, int* col_indices, int* row_ptrs,
     double* y
 ) {
-    // TODO
+    row_ptrs[0] = 0;
+    for (int i=0; i<rows; i++) {
+	int row_nnz = 0;
+	for (int j=0; j<cols; j++) {
+	    int index = i*cols + j;
+	    if (A[index] != 0) {
+		values[index] = A[index];
+		col_indices[index] = j;
+		row_nnz++;
+	    }
+	}
+	*out_nnz += row_nnz;
+	row_ptrs[i+1] = row_ptrs[i] + row_nnz;
+    }
 }
 
 // =========================================================
