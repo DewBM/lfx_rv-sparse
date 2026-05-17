@@ -52,8 +52,14 @@ three arrays:
 
 ##### row_ptrs[]
 The row offsets are calculated using the following recursive formula.
-$$\text{row\_ptrs}[0] = 0$$
-$$\text{row\_ptrs}[j+1] = \text{row\_ptrs}[j] + \text{nnz}(\text{row}_j)$$
+
+$$
+\text{row\_ptrs}[0] = 0
+$$
+
+$$
+\text{row\_ptrs}[j+1] = \text{row\_ptrs}[j] + \text{nnz}(\text{row}_j)
+$$
 
 > where $\text{nnz}(\text{row}_k)$ is the number of non-zero elements in the $k$-th row.
 
@@ -75,7 +81,6 @@ A = \begin{bmatrix}
 $$
 
 ### Matrix-Vector Multiplication with CSR
-
 
 $$
 A \cdot x =
@@ -120,7 +125,8 @@ $$
 
 $$
 \begin{array}{c|cc}
-\text{index} & 0 & 1 \\ \hline
+\text{index} & 0 & 1 \\
+\hline
 \text{val}   & 1 & 2 \\
 \text{col}   & 0 & 2
 \end{array}
@@ -132,9 +138,11 @@ using `col_indices[]` to determine *which* element of `x` to use:
 $$
 y[0] = \text{val}[0] \cdot x[\text{col}[0]] + \text{val}[1] \cdot x[\text{col}[1]]
 $$
+
 $$
 = 1 \cdot x[0] + 2 \cdot x[2]
 $$
+
 $$
 = 1 \times 3 + 2 \times 2
 $$
@@ -147,8 +155,8 @@ $$
 $$
 y[i] = \sum_{j=\text{row\_ptrs}[i]}^{\text{row\_ptrs}[i+1]-1} \text{values}[j] \times x[\text{col\_indices}[j]]
 $$
----
 
+---
 ## How to Build and Run
 
 ```bash
