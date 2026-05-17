@@ -54,11 +54,11 @@ three arrays:
 The row offsets are calculated using the following recursive formula.
 
 $$
-\text{row\_ptrs}[0] = 0
+\text{row\\_ptrs}[0] = 0
 $$
 
 $$
-\text{row\_ptrs}[j+1] = \text{row\_ptrs}[j] + \text{nnz}(\text{row}_j)
+\text{row\\_ptrs}[j+1] = \text{row\\_ptrs}[j] + \text{nnz}(\text{row}_j)
 $$
 
 > where $\text{nnz}(\text{row}_k)$ is the number of non-zero elements in the $k$-th row.
@@ -75,8 +75,8 @@ A = \begin{bmatrix}
 \quad
 \begin{aligned}
 &\text{values}       = [1, 2, 3, 4, 5, 6, 7, 8] \\
-&\text{col\_indices} = [0, 2, 1, 0, 1, 1, 2, 3] \\
-&\text{row\_ptrs}    = [0, 2, 3, 3, 5, 8]
+&\text{col\\_indices} = [0, 2, 1, 0, 1, 1, 2, 3] \\
+&\text{row\\_ptrs}    = [0, 2, 3, 3, 5, 8]
 \end{aligned}
 $$
 
@@ -106,9 +106,9 @@ only the non-zero contributions.
 
 $$
 \begin{aligned}
-&\text{val}      = [1, 2,\ 3,\ 4, 5,\ 6, 7, 8] \\
-&\text{col}      = [0, 2,\ 1,\ 0, 1,\ 1, 2, 3] \\
-&\text{row\_ptr} = [0,\ 2,\ 3,\ 3,\ 5,\ 8]
+&\text{values}      = [1, 2,\ 3,\ 4, 5,\ 6, 7, 8] \\
+&\text{col\\_indices}      = [0, 2,\ 1,\ 0, 1,\ 1, 2, 3] \\
+&\text{row\\_ptr} = [0,\ 2,\ 3,\ 3,\ 5,\ 8]
 \end{aligned}
 $$
 
@@ -117,7 +117,7 @@ Computing `y[0]` step by step.
 **Step 1:** Find the range of row 0 in `values[]` using `row_ptrs`:
 
 $$
-\text{row\_ptr}[0] = 0, \quad \text{row\_ptr}[1] = 2
+\text{row\\_ptr}[0] = 0, \quad \text{row\\_ptr}[1] = 2
 \implies \text{row 0 spans indices } [0,\ 2)
 $$
 
@@ -127,8 +127,8 @@ $$
 \begin{array}{c|cc}
 \text{index} & 0 & 1 \\
 \hline
-\text{val}   & 1 & 2 \\
-\text{col}   & 0 & 2
+\text{values}   & 1 & 2 \\
+\text{col\\_indices}   & 0 & 2
 \end{array}
 $$
 
@@ -136,7 +136,7 @@ $$
 using `col_indices[]` to determine *which* element of `x` to use:
 
 $$
-y[0] = \text{val}[0] \cdot x[\text{col}[0]] + \text{val}[1] \cdot x[\text{col}[1]]
+y[0] = \text{values}[0] \cdot x[\text{col\\_indices}[0]] + \text{values}[1] \cdot x[\text{col\\_indices}[1]]
 $$
 
 $$
@@ -153,7 +153,7 @@ $$
 **General formula for any row $i$:**
 
 $$
-y[i] = \sum_{j=\text{row\_ptrs}[i]}^{\text{row\_ptrs}[i+1]-1} \text{values}[j] \times x[\text{col\_indices}[j]]
+y[i] = \sum_{j=\text{row\\_ptrs}[i]}^{\text{row\\_ptrs}[i+1]-1} \text{values}[j] \times x[\text{col\\_indices}[j]]
 $$
 
 ---
