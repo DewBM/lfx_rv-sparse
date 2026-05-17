@@ -27,12 +27,13 @@ void sparse_multiply(
     double* y
 ) {
     // convert row-major matrix into CSR format
+    *out_nnz = 0; 
     row_ptrs[0] = 0;
     for (int i=0; i<rows; i++) {
 	int row_nnz = 0;
 	for (int j=0; j<cols; j++) {
 	    int index = i*cols + j;
-	    if (A[index] != 0) {
+	    if (A[index] != 0.0) {
 		values[*out_nnz] = A[index];
 		col_indices[*out_nnz] = j;
 		row_nnz++;
